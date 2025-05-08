@@ -20,15 +20,15 @@ firstPromise
   .then((message) => {
     document.body.innerHTML += `<div data-qa="notification" class="success">${message}</div>`;
   })
-  .catch((message) => {
-    document.body.innerHTML += `<div data-qa="notification" class="error">${message}</div>`;
+  .catch((error) => {
+    document.body.innerHTML += `<div data-qa="notification" class="error">${error.message}</div>`;
   });
 
 const secondPromise = new Promise((resolve, reject) => {
   const handleClick = (e) => {
     if (e.button === 0 || e.button === 2) {
       resolve('Second promise was resolved');
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('mousedown', handleClick);
     }
   };
 
@@ -58,14 +58,14 @@ const thirdPromise = new Promise((resolve, reject) => {
       resolveStatus = true;
 
       document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', preventContextMenu);
+      document.removeEventListener('contextmenu', preventContextMenu);
     }
   };
 
   const preventContextMenu = (e) => e.preventDefault();
 
   document.addEventListener('mousedown', handleMouseDown);
-  document.addEventListener('mouseup', preventContextMenu);
+  document.addEventListener('contextmenu', preventContextMenu);
 });
 
 thirdPromise
